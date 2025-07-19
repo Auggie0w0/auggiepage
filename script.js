@@ -67,20 +67,24 @@ const About = () => {
 const Projects = () => {
   const projects = [
     {
-      title: "CyberPatriot/NCL/PicoCTF Challenges",
-      description: "Participated in various cybersecurity competitions and challenges."
+      title: "CTF Challenges",
+      description: "Participated in cybersecurity competitions including CyberPatriot, NCL, and PicoCTF."
     },
     {
-      title: "Interactive Games",
-      description: "Currently in development - creating interactive gaming experiences."
+      title: "Shadow Maze",
+      description: "Side project game development with interactive gameplay mechanics."
     },
     {
-      title: "Francophonie Fest",
-      description: "Event work and coordination for cultural celebrations."
+      title: "Simp Gallery Website",
+      description: "Web development project showcasing creative digital content."
     },
     {
-      title: "Music Program IG Team",
-      description: "Managing and creating content for music program social media."
+      title: "Team Username Taken",
+      description: "Promotional role to increase visibility and engagement for the team."
+    },
+    {
+      title: "Creative Projects",
+      description: "Working on various creative endeavors including music, writing, and art."
     }
   ];
 
