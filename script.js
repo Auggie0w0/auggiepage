@@ -49,24 +49,17 @@ const Welcome = () => {
   return (
     <Slide id="welcome">
       <h1 className="slide-heading">
-        Hi, I'm <span className="name-highlight" onClick={toggleEmailPopup}>August Lam</span>
+        Hi, I'm <span className="name-highlight" onClick={togglePhotoPopup}>August Lam</span>
       </h1>
       <h2 className="slide-subheading">Cybersecurity student. Culture & tech builder.</h2>
       <p className="slide-text">Transferring to UBC Year 2 – Cybersecurity Co-op Stream</p>
       
-      {showEmailPopup && (
-        <div className="email-popup">
-          <button className="popup-close" onClick={toggleEmailPopup}>×</button>
-          <p>
-            Contact me: 
-            <a href="mailto:yaugustlam@gmail.com" onClick={copyEmail}>
-              {email}
-            </a>
-          </p>
-          <div className="popup-note">
-            {copySuccess ? 
-              <span className="copy-success">Email copied to clipboard! ✓</span> : 
-              "Click to copy or open mail client"}
+      {showPhotoPopup && (
+        <div className="photo-overlay" onClick={closePopup}>
+          <div className="photo-popup">
+            <button className="popup-close" onClick={closePopup}>×</button>
+            <img src="me.jpg" alt="August Lam" className="profile-photo" />
+            <div className="popup-note">Click anywhere to close</div>
           </div>
         </div>
       )}
