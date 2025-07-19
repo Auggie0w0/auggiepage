@@ -113,7 +113,7 @@ const Resume = () => {
           <li>Team Leadership</li>
         </ul>
       </div>
-      <a href="#" className="resume-button">View My CV</a>
+      <a href="CV.html" className="resume-button" target="_blank" rel="noopener noreferrer">View My CV</a>
     </Slide>
   );
 };
