@@ -27,9 +27,11 @@
 body {
   font-family: 'Inter', sans-serif;
   background-color: var(--bg-color);
+  background-image: radial-gradient(var(--slide-shadow) 1px, transparent 1px);
+  background-size: 30px 30px;
   color: var(--text-color);
   overflow-x: hidden;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, background-image 0.3s ease;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -45,7 +47,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .slide {
-  height: 100vh;
+  height: 110vh; /* Make slides taller */
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -58,14 +60,17 @@ h1, h2, h3, h4, h5, h6 {
 
 .slide-content {
   max-width: 1200px;
-  width: 100%;
-  padding: 2rem;
-  border-radius: 8px;
+  width: 60%; /* Reduce width to 60% */
+  padding: 3rem;
+  border-radius: 12px;
   background-color: var(--bg-color);
-  box-shadow: 0 4px 20px var(--slide-shadow);
+  box-shadow: 0 8px 30px var(--slide-shadow);
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.5s ease, transform 0.5s ease;
+  position: relative;
+  overflow: hidden;
+  border-left: 4px solid var(--blue-accent);
 }
 
 .slide-content.visible {
@@ -122,7 +127,7 @@ h1, h2, h3, h4, h5, h6 {
 /* Projects section */
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(2, 1fr); /* Two columns for projects */
   gap: 1.5rem;
   width: 100%;
 }
@@ -189,6 +194,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Responsive styles */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .slide-content {
+    width: 75%; /* Medium width for tablets */
+  }
+}
+
 @media (max-width: 768px) {
   .slide-heading {
     font-size: 2rem;
@@ -199,6 +210,7 @@ h1, h2, h3, h4, h5, h6 {
   }
   
   .slide-content {
+    width: 90%; /* Wider on mobile */
     padding: 1.5rem;
   }
   
