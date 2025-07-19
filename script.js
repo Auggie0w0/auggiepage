@@ -35,11 +35,32 @@ const Slide = ({ id, children }) => {
 
 // Welcome component
 const Welcome = () => {
+  const [showEmailPopup, setShowEmailPopup] = useState(false);
+  
+  const toggleEmailPopup = () => {
+    setShowEmailPopup(!showEmailPopup);
+    
+    // Auto-hide popup after 5 seconds
+    if (!showEmailPopup) {
+      setTimeout(() => {
+        setShowEmailPopup(false);
+      }, 5000);
+    }
+  };
+  
   return (
     <Slide id="welcome">
-      <h1 className="slide-heading">Hi, I'm <span className="highlight">August Lam</span></h1>
+      <h1 className="slide-heading">
+        Hi, I'm <span className="name-highlight" onClick={toggleEmailPopup}>August Lam</span>
+      </h1>
       <h2 className="slide-subheading">Cybersecurity student. Culture & tech builder.</h2>
       <p className="slide-text">Transferring to UBC Year 2 – Cybersecurity Co-op Stream</p>
+      
+      {showEmailPopup && (
+        <div className="email-popup">
+          <p>Contact me: <a href="mailto:yaugustlam@gmail.com">yaugustlam@gmail.com</a></p>
+        </div>
+      )}
     </Slide>
   );
 };
@@ -76,10 +97,6 @@ const Projects = () => {
     {
       title: "Team Username Taken",
       description: "Promotional role to increase visibility and engagement for the team."
-    },
-    {
-      title: "Creative Projects",
-      description: "Working on various creative endeavors including music, writing, and art."
     }
   ];
 
@@ -124,9 +141,9 @@ const Contact = () => {
       <h2 className="slide-heading">Contact</h2>
       <p className="slide-text">Let's connect! Reach out to me through any of these platforms.</p>
       <div className="contact-links">
-        <a href="https://github.com" className="contact-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://github.com/Auggie0w0" className="contact-link" target="_blank" rel="noopener noreferrer">GitHub</a>
         <a href="https://www.linkedin.com/in/august-lam-b6a4a5361" className="contact-link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a href="mailto:email@example.com" className="contact-link">Email</a>
+        <a href="mailto:yaugustlam@gmail.com" className="contact-link">Email</a>
         <a href="#" className="contact-link">Team Homepage (Coming Soon)</a>
       </div>
     </Slide>
