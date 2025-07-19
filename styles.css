@@ -311,6 +311,13 @@ h1, h2, h3, h4, h5, h6 {
   color: #777;
   margin-top: 10px;
   font-style: italic;
+  min-height: 20px;
+}
+
+.copy-success {
+  color: #4CAF50;
+  font-weight: 600;
+  animation: fadeInOut 2s ease;
 }
 
 @keyframes popupFadeIn {
@@ -322,6 +329,13 @@ h1, h2, h3, h4, h5, h6 {
     opacity: 1;
     transform: translate(-50%, 0);
   }
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { opacity: 0; }
 }
 
 /* Responsive styles */
