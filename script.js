@@ -8,14 +8,9 @@ const Slide = ({ id, children }) => {
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          // Update active dot
-          document.querySelectorAll('.nav-dot').forEach(dot => {
-            dot.classList.remove('active');
-          });
-          document.querySelector(`.nav-dot[data-slide="${id}"]`).classList.add('active');
         }
       },
-      { threshold: 0.5 }
+      { threshold: 0.3, rootMargin: '-10% 0px' }
     );
 
     if (slideRef.current) {
@@ -117,7 +112,7 @@ const Resume = () => {
           <li>Team Leadership</li>
         </ul>
       </div>
-      <a href="CV.html" className="resume-button" target="_blank" rel="noopener noreferrer">View My CV</a>
+      <a href="CV.html" className="resume-button">View My CV</a>
     </Slide>
   );
 };
@@ -139,27 +134,23 @@ const Contact = () => {
 };
 
 // Navigation dots component
-const NavDots = () => {
+const NavDots = ({ currentIndex, onNavigate }) => {
   const sections = ["welcome", "about", "projects", "resume", "contact"];
-  
-  const scrollToSection = (id) => {
-    document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
-  };
 
   return (
     <div className="nav-dots" role="navigation" aria-label="Page Navigation">
       {sections.map((section, index) => (
         <div 
           key={index} 
-          className={`nav-dot ${index === 0 ? 'active' : ''}`} 
+          className={`nav-dot ${index === currentIndex ? 'active' : ''}`} 
           data-slide={section}
-          onClick={() => scrollToSection(section)}
+          onClick={() => onNavigate(index)}
           role="button"
           aria-label={`Go to ${section} section`}
           tabIndex={0}
           onKeyDown={(e) => {
             if (e.key === 'Enter' || e.key === ' ') {
-              scrollToSection(section);
+              onNavigate(index);
             }
           }}
         />
@@ -170,10 +161,81 @@ const NavDots = () => {
 
 // Main App component
 const App = () => {
+  const sections = ["welcome", "about", "projects", "resume", "contact"];
+  const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
+  
+  // Function to navigate to a section
+  const navigateToSection = (index) => {
+    if (index >= 0 && index < sections.length) {
+      setCurrentSectionIndex(index);
+      document.getElementById(sections[index]).scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+  
   useEffect(() => {
     // Initialize the first dot as active
     document.querySelector('.nav-dot[data-slide="welcome"]').classList.add('active');
-  }, []);
+    
+    // Add keyboard navigation
+    const handleKeyDown = (e) => {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+        e.preventDefault();
+        navigateToSection(currentSectionIndex + 1);
+      } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+        e.preventDefault();
+        navigateToSection(currentSectionIndex - 1);
+      }
+    };
+    
+    // Add wheel event handling for more controlled scrolling
+    let wheelTimeout;
+    const handleWheel = (e) => {
+      e.preventDefault();
+      
+      // Clear any existing timeout
+      clearTimeout(wheelTimeout);
+      
+      // Set a timeout to prevent rapid scrolling
+      wheelTimeout = setTimeout(() => {
+        if (e.deltaY > 0) {
+          navigateToSection(currentSectionIndex + 1);
+        } else {
+          navigateToSection(currentSectionIndex - 1);
+        }
+      }, 100);
+    };
+    
+    const appContainer = document.querySelector('.app-container');
+    appContainer.addEventListener('wheel', handleWheel, { passive: false });
+    window.addEventListener('keydown', handleKeyDown);
+    
+    // Update the active section based on scroll position
+    const handleScroll = () => {
+      const sections = document.querySelectorAll('.slide');
+      let newIndex = 0;
+      
+      sections.forEach((section, index) => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
+          newIndex = index;
+        }
+      });
+      
+      if (newIndex !== currentSectionIndex) {
+        setCurrentSectionIndex(newIndex);
+      }
+    };
+    
+    appContainer.addEventListener('scroll', handleScroll);
+    
+    // Cleanup
+    return () => {
+      appContainer.removeEventListener('wheel', handleWheel);
+      window.removeEventListener('keydown', handleKeyDown);
+      appContainer.removeEventListener('scroll', handleScroll);
+      clearTimeout(wheelTimeout);
+    };
+  }, [currentSectionIndex]);
 
   return (
     <div className="app-container">
@@ -182,7 +244,7 @@ const App = () => {
       <Projects />
       <Resume />
       <Contact />
-      <NavDots />
+      <NavDots currentIndex={currentSectionIndex} onNavigate={navigateToSection} />
     </div>
   );
 };
