@@ -1,0 +1,212 @@
+:root {
+  /* Light theme (default) */
+  --bg-color: #FDFBF7;
+  --text-color: #0A0A0A;
+  --blue-accent: #0F67D1;
+  --yellow-accent: #FFD447;
+  --slide-shadow: rgba(0, 0, 0, 0.05);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Dark theme */
+    --bg-color: #121212;
+    --text-color: #F5F5F5;
+    --blue-accent: #3B82F6;
+    --yellow-accent: #FFD447;
+    --slide-shadow: rgba(255, 255, 255, 0.05);
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  overflow-x: hidden;
+  transition: background-color 0.3s ease;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'IBM Plex Serif', Georgia, serif;
+  font-weight: 600;
+}
+
+.app-container {
+  scroll-snap-type: y mandatory;
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+
+.slide {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  scroll-snap-align: start;
+  position: relative;
+}
+
+.slide-content {
+  max-width: 1200px;
+  width: 100%;
+  padding: 2rem;
+  border-radius: 8px;
+  background-color: var(--bg-color);
+  box-shadow: 0 4px 20px var(--slide-shadow);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.slide-content.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.slide-heading {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-color);
+}
+
+.slide-subheading {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--blue-accent);
+}
+
+.slide-text {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+/* Navigation dots */
+.nav-dots {
+  position: fixed;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  z-index: 100;
+}
+
+.nav-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--text-color);
+  opacity: 0.3;
+  cursor: pointer;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.nav-dot.active {
+  opacity: 1;
+  background-color: var(--blue-accent);
+  transform: scale(1.2);
+}
+
+/* Projects section */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.project-card {
+  background-color: var(--bg-color);
+  border: 2px solid var(--blue-accent);
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px var(--slide-shadow);
+}
+
+.project-title {
+  color: var(--blue-accent);
+  margin-bottom: 0.75rem;
+}
+
+/* Resume section */
+.resume-button {
+  display: inline-block;
+  background-color: var(--blue-accent);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 500;
+  margin-top: 1rem;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.resume-button:hover {
+  background-color: var(--yellow-accent);
+  color: var(--text-color);
+  transform: translateY(-2px);
+}
+
+/* Contact section */
+.contact-links {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.contact-link {
+  color: var(--blue-accent);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.contact-link:hover {
+  color: var(--yellow-accent);
+}
+
+/* Highlight */
+.highlight {
+  color: var(--yellow-accent);
+  font-weight: 600;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .slide-heading {
+    font-size: 2rem;
+  }
+  
+  .slide-subheading {
+    font-size: 1.25rem;
+  }
+  
+  .slide-content {
+    padding: 1.5rem;
+  }
+  
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .nav-dots {
+    right: 1rem;
+  }
+}
