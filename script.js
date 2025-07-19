@@ -36,9 +36,12 @@ const Slide = ({ id, children }) => {
 // Welcome component
 const Welcome = () => {
   const [showEmailPopup, setShowEmailPopup] = useState(false);
+  const [copySuccess, setCopySuccess] = useState(false);
+  const email = "yaugustlam@gmail.com";
   
   const toggleEmailPopup = () => {
     setShowEmailPopup(!showEmailPopup);
+    setCopySuccess(false);
     
     // Auto-hide popup after 5 seconds
     if (!showEmailPopup) {
@@ -46,6 +49,14 @@ const Welcome = () => {
         setShowEmailPopup(false);
       }, 5000);
     }
+  };
+  
+  const copyEmail = (e) => {
+    e.preventDefault();
+    navigator.clipboard.writeText(email).then(() => {
+      setCopySuccess(true);
+      setTimeout(() => setCopySuccess(false), 2000);
+    });
   };
   
   return (
@@ -58,7 +69,18 @@ const Welcome = () => {
       
       {showEmailPopup && (
         <div className="email-popup">
-          <p>Contact me: <a href="mailto:yaugustlam@gmail.com">yaugustlam@gmail.com</a></p>
+          <button className="popup-close" onClick={toggleEmailPopup}>×</button>
+          <p>
+            Contact me: 
+            <a href="mailto:yaugustlam@gmail.com" onClick={copyEmail}>
+              {email}
+            </a>
+          </p>
+          <div className="popup-note">
+            {copySuccess ? 
+              <span className="copy-success">Email copied to clipboard! ✓</span> : 
+              "Click to copy or open mail client"}
+          </div>
         </div>
       )}
     </Slide>

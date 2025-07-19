@@ -247,6 +247,83 @@ h1, h2, h3, h4, h5, h6 {
   transform-origin: bottom left;
 }
 
+/* Email popup */
+.email-popup {
+  position: absolute;
+  top: calc(50% + 50px);
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--bg-color);
+  border: 2px solid var(--blue-accent);
+  border-radius: 12px;
+  padding: 20px 30px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+  animation: popupFadeIn 0.3s ease forwards;
+  min-width: 300px;
+  text-align: center;
+}
+
+.email-popup p {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.email-popup a {
+  color: var(--blue-accent);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease, transform 0.3s ease;
+  display: inline-block;
+  margin-left: 5px;
+}
+
+.email-popup a:hover {
+  color: var(--yellow-accent);
+  transform: translateY(-1px);
+}
+
+.popup-close {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--text-color);
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+}
+
+.popup-close:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.popup-note {
+  font-size: 0.8rem;
+  color: #777;
+  margin-top: 10px;
+  font-style: italic;
+}
+
+@keyframes popupFadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 10px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
 /* Responsive styles */
 @media (max-width: 1024px) and (min-width: 769px) {
   .slide-content {
