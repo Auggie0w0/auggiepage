@@ -35,28 +35,15 @@ const Slide = ({ id, children }) => {
 
 // Welcome component
 const Welcome = () => {
-  const [showEmailPopup, setShowEmailPopup] = useState(false);
-  const [copySuccess, setCopySuccess] = useState(false);
-  const email = "yaugustlam@gmail.com";
+  const [showPhotoPopup, setShowPhotoPopup] = useState(false);
   
-  const toggleEmailPopup = () => {
-    setShowEmailPopup(!showEmailPopup);
-    setCopySuccess(false);
-    
-    // Auto-hide popup after 5 seconds
-    if (!showEmailPopup) {
-      setTimeout(() => {
-        setShowEmailPopup(false);
-      }, 5000);
-    }
+  const togglePhotoPopup = () => {
+    setShowPhotoPopup(!showPhotoPopup);
   };
   
-  const copyEmail = (e) => {
-    e.preventDefault();
-    navigator.clipboard.writeText(email).then(() => {
-      setCopySuccess(true);
-      setTimeout(() => setCopySuccess(false), 2000);
-    });
+  // Close popup when clicking anywhere
+  const closePopup = () => {
+    setShowPhotoPopup(false);
   };
   
   return (
@@ -106,19 +93,23 @@ const Projects = () => {
   const projects = [
     {
       title: "CTF Challenges",
-      description: "Participated in cybersecurity competitions including CyberPatriot, NCL, and PicoCTF."
+      description: "Participated in cybersecurity competitions including CyberPatriot, NCL, and PicoCTF.",
+      link: null
     },
     {
       title: "Shadow Maze",
-      description: "Side project game development with interactive gameplay mechanics."
+      description: "Side project game development with interactive gameplay mechanics.",
+      link: "https://shadow-escape.vercel.app/"
     },
     {
       title: "Simp Gallery Website",
-      description: "Web development project showcasing creative digital content."
+      description: "Web development project showcasing creative digital content.",
+      link: "https://personal-simp-site.vercel.app/"
     },
     {
       title: "Team Username Taken",
-      description: "Promotional role to increase visibility and engagement for the team."
+      description: "Promotional role to increase visibility and engagement for the team.",
+      link: null
     }
   ];
 
@@ -128,8 +119,18 @@ const Projects = () => {
       <div className="projects-grid">
         {projects.map((project, index) => (
           <div className="project-card" key={index}>
-            <h3 className="project-title">{project.title}</h3>
-            <p>{project.description}</p>
+            {project.link ? (
+              <a href={project.link} className="project-link" target="_blank" rel="noopener noreferrer">
+                <h3 className="project-title">{project.title}</h3>
+                <p>{project.description}</p>
+                <div className="project-visit">Visit Project →</div>
+              </a>
+            ) : (
+              <>
+                <h3 className="project-title">{project.title}</h3>
+                <p>{project.description}</p>
+              </>
+            )}
           </div>
         ))}
       </div>

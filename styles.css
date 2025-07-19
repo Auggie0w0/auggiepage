@@ -141,12 +141,16 @@ h1, h2, h3, h4, h5, h6 {
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   position: relative;
   overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .project-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 10px 20px var(--slide-shadow);
   border-color: var(--yellow-accent);
+  cursor: pointer;
 }
 
 .project-card::before {
@@ -164,10 +168,41 @@ h1, h2, h3, h4, h5, h6 {
   background-color: var(--yellow-accent);
 }
 
+.project-card a {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.project-card p {
+  flex-grow: 1;
+}
+
 .project-title {
   color: var(--blue-accent);
   margin-bottom: 0.75rem;
   font-size: 1.2rem;
+}
+
+.project-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  height: 100%;
+}
+
+.project-visit {
+  margin-top: 1rem;
+  color: var(--blue-accent);
+  font-weight: 500;
+  font-size: 0.9rem;
+  text-align: right;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.project-link:hover .project-visit {
+  color: var(--yellow-accent);
+  transform: translateX(5px);
 }
 
 /* Resume section */
