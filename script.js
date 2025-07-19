@@ -152,15 +152,57 @@ const Resume = () => {
 
 // Contact component
 const Contact = () => {
+  const contactCards = [
+    {
+      title: "GitHub",
+      icon: "👨‍💻",
+      link: "https://github.com/Auggie0w0",
+      description: "Check out my code repositories"
+    },
+    {
+      title: "LinkedIn",
+      icon: "🔗",
+      link: "https://www.linkedin.com/in/august-lam-b6a4a5361",
+      description: "Connect with me professionally"
+    },
+    {
+      title: "Email",
+      icon: "📧",
+      link: "mailto:yaugustlam@gmail.com",
+      description: "yaugustlam@gmail.com"
+    },
+    {
+      title: "Team Homepage",
+      icon: "🏠",
+      link: "#",
+      description: "Coming Soon"
+    },
+    {
+      title: "SoundCloud",
+      icon: "🎵",
+      link: "https://soundcloud.com/augg0w0",
+      description: "Listen to my music"
+    }
+  ];
+
   return (
     <Slide id="contact">
       <h2 className="slide-heading">Contact</h2>
       <p className="slide-text">Let's connect! Reach out to me through any of these platforms.</p>
-      <div className="contact-links">
-        <a href="https://github.com/Auggie0w0" className="contact-link" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="https://www.linkedin.com/in/august-lam-b6a4a5361" className="contact-link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a href="mailto:yaugustlam@gmail.com" className="contact-link">Email</a>
-        <a href="#" className="contact-link">Team Homepage (Coming Soon)</a>
+      <div className="contact-cards">
+        {contactCards.map((card, index) => (
+          <a 
+            href={card.link} 
+            className="contact-card" 
+            key={index}
+            target="_blank" 
+            rel="noopener noreferrer"
+          >
+            <div className="contact-card-icon">{card.icon}</div>
+            <h3 className="contact-card-title">{card.title}</h3>
+            <p className="contact-card-description">{card.description}</p>
+          </a>
+        ))}
       </div>
     </Slide>
   );
