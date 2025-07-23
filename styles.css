@@ -27,7 +27,7 @@
 
 /* Faster transitions for all elements */
 * {
-  transition-duration: 0.2s !important; /* Override all transitions to be faster */
+  transition-duration: 0.25s !important; /* Reduced to 0.25s */
 }
 
 /* Responsive base settings */
@@ -36,6 +36,7 @@ html {
   scroll-behavior: smooth;
   scroll-timeline: --scroll-speed;
   font-family: 'Fira Code', 'IBM Plex Mono', 'Courier New', monospace; /* Tech-inspired monospace font */
+  line-height: 1.8; /* Increased base line height for all text */
 }
 
 body {
@@ -44,7 +45,7 @@ body {
   background-size: 30px 30px;
   color: var(--text-color);
   overflow-x: hidden;
-  transition: background-color 0.3s ease, background-image 0.3s ease;
+  transition: background-color 0.25s ease, background-image 0.25s ease; /* Reduced to 0.25s */
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -59,7 +60,7 @@ h1, h2, h3, h4, h5, h6 {
   scroll-behavior: smooth; /* We'll keep smooth but make it faster with a custom property */
   scroll-snap-stop: always; /* Force stopping at each slide */
   width: 100%;
-  --scroll-speed: 0.2s; /* Custom property for faster scroll speed */
+  --scroll-speed: 0.25s; /* Reduced to 0.25s */
 }
 
 .slide {
@@ -69,21 +70,21 @@ h1, h2, h3, h4, h5, h6 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: var(--invisible-margin); /* Invisible margin */
+  padding: 0; /* No padding on slide */
   scroll-snap-align: start;
   position: relative;
 }
 
 .slide-content {
-  max-width: 100%; /* Full width */
-  width: 100%; /* Full width */
-  padding: 0; /* Removed padding */
-  border-radius: 0; /* Removed border radius */
+  max-width: 1600px; /* Maximum width for very large screens */
+  width: 60%; /* Default width - will be overridden by media queries */
+  margin: 0 20%; /* 20% margin on each side */
+  padding: var(--invisible-margin); /* Invisible padding inside content */
   background-color: transparent; /* Make background transparent */
   box-shadow: none; /* Removed shadow */
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 0.2s ease, transform 0.2s ease; /* Faster transition */
+  transition: opacity 0.25s ease, transform 0.25s ease; /* Reduced to 0.25s */
   position: relative;
   overflow: visible; /* Allow content to overflow */
 }
@@ -95,24 +96,34 @@ h1, h2, h3, h4, h5, h6 {
 
 .slide-heading {
   font-size: clamp(1.75rem, 5vw, 2.5rem); /* Responsive font size */
-  margin-bottom: 0; /* Removed margin */
+  margin-bottom: 1.5rem; /* Increased spacing between elements */
   color: var(--text-color);
   letter-spacing: -0.5px; /* Tighter letter spacing for tech look */
+  line-height: 1.4; /* Specific line height for headings */
 }
 
 .slide-subheading {
   font-size: clamp(1.25rem, 3vw, 1.5rem); /* Responsive font size */
-  margin-bottom: 0; /* Removed margin */
+  margin-bottom: 1.5rem; /* Increased spacing between elements */
   color: var(--blue-accent);
   opacity: 0.9;
   letter-spacing: -0.5px;
+  line-height: 1.5; /* Specific line height for subheadings */
 }
 
 .slide-text {
   font-size: clamp(1rem, 2vw, 1.1rem); /* Responsive font size */
-  line-height: 1.6;
-  margin-bottom: 0; /* Removed margin */
+  line-height: 2; /* Increased line height for better readability */
+  margin-bottom: 2rem; /* Increased spacing between elements */
   opacity: 0.8;
+}
+
+.slide-text p {
+  margin-bottom: 1.5rem; /* Add space between paragraphs */
+}
+
+.slide-text p:last-child {
+  margin-bottom: 0; /* Remove bottom margin from last paragraph */
 }
 
 /* Name highlight with nerdy-cute style */
@@ -148,7 +159,7 @@ h1, h2, h3, h4, h5, h6 {
   opacity: 1;
 }
 
-/* Photo popup - updated for full-screen with 60% width photo */
+/* Photo popup - updated to stay within screen constraints */
 .photo-overlay {
   position: fixed;
   top: 0;
@@ -160,30 +171,36 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: fadeIn 0.3s ease;
+  animation: fadeIn 0.25s ease;
   cursor: pointer;
+  overflow: hidden; /* Prevent scrolling when popup is open */
 }
 
 .photo-popup {
   position: relative;
   width: 60%; /* Set to 60% of viewport width as requested */
-  max-height: none; /* No max height constraint */
+  max-width: 1200px; /* Maximum width on very large screens */
+  max-height: 80vh; /* Limit height to 80% of viewport height */
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   background-color: transparent; /* Transparent background */
   border: none; /* No border */
   padding: 0; /* No padding */
   box-shadow: none; /* No shadow */
   z-index: 1001;
-  animation: popupFadeIn 0.3s ease forwards;
+  animation: popupFadeIn 0.25s ease forwards;
+  overflow: hidden; /* Prevent content from overflowing */
 }
 
 .profile-photo {
   width: 100%;
   height: auto;
+  max-height: 80vh; /* Ensure image doesn't exceed viewport height */
   border-radius: 4px;
-  object-fit: contain;
+  object-fit: contain; /* Maintain aspect ratio while fitting within constraints */
+  display: block; /* Remove any extra space */
 }
 
 .popup-close {
@@ -201,7 +218,7 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.25s ease;
   z-index: 1002;
   font-family: 'Fira Code', monospace;
 }
@@ -219,7 +236,7 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--text-color);
   padding: 8px 16px;
   border: 1px solid var(--text-color);
-  border-radius: 4px;
+  border-radius: 0; /* Square corners for tech look */
   text-decoration: none;
   font-weight: 600;
   font-size: 1rem;
@@ -239,6 +256,27 @@ h1, h2, h3, h4, h5, h6 {
 .cv-corner-button::before {
   content: '> ';
   opacity: 0.7;
+}
+
+/* Adjust CV button position on different screen sizes */
+@media (min-width: 1800px) {
+  .cv-corner-button {
+    top: 30px;
+    right: calc(20% + 30px); /* Align with content margin */
+    font-size: 1.1rem;
+  }
+}
+
+@media (min-width: 1200px) and (max-width: 1799px) {
+  .cv-corner-button {
+    right: calc(20% + 20px); /* Align with content margin */
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .cv-corner-button {
+    right: calc(15% + 20px); /* Align with content margin */
+  }
 }
 
 /* Navigation dots - more tech-inspired */
@@ -310,13 +348,14 @@ h1, h2, h3, h4, h5, h6 {
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); /* More responsive grid */
   gap: clamp(1rem, 2vw, 1.5rem); /* Responsive gap */
   width: 100%;
+  margin-top: 2rem; /* Added spacing */
 }
 
 .project-card {
   background-color: var(--bg-color);
   border: 1px solid var(--text-color);
   border-radius: 0; /* Square corners for tech look */
-  padding: 1.5rem;
+  padding: 1.75rem; /* Increased padding */
   transition: transform 0.3s ease, border-color 0.3s ease; /* Removed box-shadow transition */
   position: relative;
   overflow: hidden;
@@ -324,6 +363,8 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   flex-direction: column;
   font-family: 'Fira Code', monospace;
+  margin-bottom: 1.5rem; /* Increased bottom margin */
+  line-height: 1.8; /* Increased line height */
 }
 
 .project-card:hover {
@@ -364,10 +405,11 @@ h1, h2, h3, h4, h5, h6 {
 
 .project-title {
   color: var(--blue-accent);
-  margin-bottom: 0; /* Removed margin */
+  margin-bottom: 1rem; /* Increased margin */
   font-size: 1.2rem;
   font-family: 'Fira Code', monospace;
   letter-spacing: -0.5px;
+  line-height: 1.5; /* Specific line height */
 }
 
 .project-link {
@@ -378,7 +420,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .project-visit {
-  margin-top: 0; /* Removed margin */
+  margin-top: 1rem; /* Added margin */
   color: var(--blue-accent);
   font-weight: 500;
   font-size: 0.9rem;
@@ -402,7 +444,7 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 0; /* Square corners for tech look */
   text-decoration: none;
   font-weight: 500;
-  margin-top: 0; /* Removed margin */
+  margin-top: 2rem; /* Increased margin */
   transition: background-color 0.3s ease, transform 0.3s ease;
   font-family: 'Fira Code', monospace;
 }
@@ -413,12 +455,40 @@ h1, h2, h3, h4, h5, h6 {
   transform: translateY(-2px);
 }
 
+/* List styling with better spacing */
+ul, ol {
+  margin-left: 1.5rem;
+  margin-bottom: 2rem;
+  line-height: 2; /* Increased line height for lists */
+}
+
+li {
+  margin-bottom: 0.75rem; /* Space between list items */
+  padding-left: 0.5rem; /* Indent list items */
+}
+
+li:last-child {
+  margin-bottom: 0; /* Remove margin from last item */
+}
+
+/* Add spacing for headings inside sections */
+h3 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+/* Adjust spacing for the terminal cursor */
+.terminal-cursor {
+  margin-left: 0.4em; /* Increased spacing */
+}
+
 /* Contact section */
 .contact-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); /* More responsive grid */
   gap: clamp(1rem, 2vw, 1.5rem); /* Responsive gap */
-  margin-top: 0; /* Removed margin */
+  margin-top: 2rem; /* Added spacing */
   width: 100%;
 }
 
@@ -426,7 +496,7 @@ h1, h2, h3, h4, h5, h6 {
   background-color: var(--bg-color);
   border: 1px solid var(--text-color);
   border-radius: 0; /* Square corners for tech look */
-  padding: 1.5rem;
+  padding: 1.75rem; /* Increased padding */
   text-decoration: none;
   color: var(--text-color);
   transition: transform 0.3s ease, border-color 0.3s ease; /* Removed box-shadow transition */
@@ -437,6 +507,8 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
   overflow: hidden;
   font-family: 'Fira Code', monospace;
+  margin-bottom: 1.5rem; /* Increased bottom margin */
+  line-height: 1.8; /* Increased line height */
 }
 
 .contact-card::before {
@@ -463,17 +535,18 @@ h1, h2, h3, h4, h5, h6 {
 
 .contact-card-icon {
   font-size: 2rem;
-  margin-bottom: 0; /* Removed margin */
+  margin-bottom: 1rem; /* Increased margin */
 }
 
 .contact-card-title {
   color: var(--blue-accent);
-  margin-bottom: 0; /* Removed margin */
+  margin-bottom: 0.75rem; /* Increased margin */
   font-size: 1.2rem;
   font-weight: 600;
   transition: color 0.3s ease;
   letter-spacing: -0.5px;
   font-family: 'Fira Code', monospace;
+  line-height: 1.5; /* Specific line height */
 }
 
 .contact-card:hover .contact-card-title {
@@ -484,6 +557,7 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 0.9rem;
   opacity: 0.8;
   font-family: 'Fira Code', monospace;
+  line-height: 1.8; /* Increased line height */
 }
 
 /* Highlight */
@@ -518,48 +592,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Responsive styles - Updated for better adaptability */
-@media (max-width: 1024px) {
-  .nav-dots {
-    right: clamp(0.5rem, 2vw, 1.5rem);
-  }
-  
-  .nav-dot {
-    width: clamp(8px, 1.5vw, 12px);
-    height: clamp(8px, 1.5vw, 12px);
-  }
-}
-
-@media (max-width: 768px) {
-  .projects-grid,
-  .contact-cards {
-    grid-template-columns: 1fr; /* Single column on small screens */
-  }
-  
-  .slide-content {
-    padding: clamp(1rem, 4vw, 1.5rem);
-  }
-}
-
-/* Small screens */
-@media (max-width: 480px) {
-  html {
-    font-size: 14px; /* Slightly smaller base font size on very small screens */
-  }
-  
-  .slide {
-    padding: 1rem;
-  }
-  
-  .slide-content {
-    padding: 1rem;
-  }
-  
-  .project-card,
-  .contact-card {
-    padding: 1rem;
-  }
-}
-
 /* Extra large screens */
 @media (min-width: 1800px) {
   html {
@@ -567,28 +599,112 @@ h1, h2, h3, h4, h5, h6 {
   }
   
   .slide-content {
-    max-width: 1600px;
+    max-width: 1800px; /* Larger max width */
+    margin: 0 20%; /* Maintain 20% margins */
+  }
+  
+  .slide-heading {
+    font-size: 3rem; /* Larger headings on big screens */
+  }
+  
+  .slide-subheading {
+    font-size: 2rem;
+  }
+  
+  .slide-text {
+    font-size: 1.25rem;
+  }
+}
+
+/* Large screens */
+@media (min-width: 1200px) and (max-width: 1799px) {
+  .slide-content {
+    margin: 0 20%; /* Maintain 20% margins */
+  }
+}
+
+/* Medium screens */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .slide-content {
+    width: 70%; /* Less margin on medium screens */
+    margin: 0 15%;
+  }
+}
+
+/* Small screens */
+@media (max-width: 767px) {
+  .slide-content {
+    width: 90%; /* Minimal margins on small screens */
+    margin: 0 5%;
+    padding: 1rem; /* Smaller padding */
+  }
+  
+  html {
+    font-size: 14px; /* Slightly smaller base font size */
+  }
+  
+  .slide {
+    scroll-snap-align: start; /* Better scrolling on mobile */
+  }
+  
+  .projects-grid,
+  .contact-cards {
+    grid-template-columns: 1fr; /* Single column on small screens */
+  }
+  
+  .cv-corner-button {
+    top: 10px;
+    right: 10px;
+    padding: 6px 12px;
+    font-size: 0.9rem;
+  }
+  
+  .photo-popup {
+    width: 90%; /* Wider on mobile */
+  }
+}
+
+/* Very small screens */
+@media (max-width: 480px) {
+  .slide-content {
+    width: 95%; /* Even less margin on very small screens */
+    margin: 0 2.5%;
   }
 }
 
 /* Support for landscape orientation on mobile */
 @media (max-height: 500px) and (orientation: landscape) {
   .slide {
-    padding: 1rem;
+    padding: 0;
+    min-height: 120vh; /* Taller slides for better scrolling in landscape */
   }
   
   .slide-content {
     padding: 1rem;
-    max-height: 85vh;
-    overflow-y: auto;
+    max-height: none; /* No max height constraint */
   }
   
-  .slide-heading {
-    margin-bottom: 0.5rem;
+  .nav-dots {
+    flex-direction: row;
+    top: auto;
+    bottom: 1rem;
+    right: 50%;
+    transform: translateX(50%);
+    gap: 1rem;
   }
   
-  .slide-subheading {
-    margin-bottom: 0.75rem;
+  .nav-dot-container {
+    flex-direction: column;
+  }
+  
+  .nav-dot-label {
+    right: auto;
+    bottom: calc(100% + 10px);
+    transform: translateY(10px);
+  }
+  
+  .nav-dot-container:hover .nav-dot-label {
+    transform: translateY(0);
   }
 }
 
@@ -620,7 +736,41 @@ h1, h2, h3, h4, h5, h6 {
 /* Responsive photo popup */
 @media (max-width: 768px) {
   .photo-popup {
-    width: 85%; /* Wider on mobile */
+    width: 90%; /* Wider on mobile */
+    max-height: 70vh; /* Smaller height on mobile */
+  }
+  
+  .profile-photo {
+    max-height: 70vh; /* Smaller height on mobile */
+  }
+  
+  .popup-close {
+    top: -20px;
+    right: -10px;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 480px) {
+  .photo-popup {
+    width: 95%; /* Even wider on very small screens */
+    max-height: 60vh; /* Even smaller height on very small screens */
+  }
+  
+  .profile-photo {
+    max-height: 60vh; /* Even smaller height on very small screens */
+  }
+}
+
+/* Landscape orientation */
+@media (max-height: 500px) and (orientation: landscape) {
+  .photo-popup {
+    width: 70%; /* Narrower in landscape to leave room for height */
+    max-height: 90vh; /* Allow more height in landscape */
+  }
+  
+  .profile-photo {
+    max-height: 90vh; /* Allow more height in landscape */
   }
 }
 

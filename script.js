@@ -68,12 +68,26 @@ const Welcome = () => {
       }
     };
     
+    // Close popup when navigating away from this section
+    const handleScroll = () => {
+      if (showPhotoPopup) {
+        const welcomeSection = document.getElementById('welcome');
+        const rect = welcomeSection.getBoundingClientRect();
+        // If welcome section is not in view, close the popup
+        if (rect.top < -window.innerHeight / 2 || rect.bottom < window.innerHeight / 2) {
+          closePopup();
+        }
+      }
+    };
+    
     if (showPhotoPopup) {
       window.addEventListener('keydown', handleKeyPress);
+      window.addEventListener('scroll', handleScroll);
     }
     
     return () => {
       window.removeEventListener('keydown', handleKeyPress);
+      window.removeEventListener('scroll', handleScroll);
       if (popupTimerRef.current) {
         clearTimeout(popupTimerRef.current);
       }
@@ -310,11 +324,24 @@ const App = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [isLandscape, setIsLandscape] = useState(window.innerHeight < window.innerWidth);
   
+  // Function to close any open popups
+  const closeAllPopups = () => {
+    // Find and close photo popup if it exists
+    const photoOverlay = document.querySelector('.photo-overlay');
+    if (photoOverlay) {
+      // Simulate a click on the overlay to close it
+      photoOverlay.click();
+    }
+  };
+  
   // Function to navigate to a section with reduced delay
   const navigateToSection = (index) => {
     if (index >= 0 && index < sections.length) {
+      // Close any open popups before navigating
+      closeAllPopups();
+      
       setCurrentSectionIndex(index);
-      // Use a faster scroll behavior
+      // Use a faster scroll behavior with 250ms delay
       document.getElementById(sections[index]).scrollIntoView({ 
         behavior: 'smooth',
         block: 'start'
@@ -325,6 +352,9 @@ const App = () => {
   // Function for instant navigation (no animation)
   const navigateInstantly = (index) => {
     if (index >= 0 && index < sections.length) {
+      // Close any open popups before navigating
+      closeAllPopups();
+      
       setCurrentSectionIndex(index);
       // Use instant navigation without animation
       document.getElementById(sections[index]).scrollIntoView({ 
@@ -368,14 +398,14 @@ const App = () => {
       // Clear any existing timeout
       clearTimeout(wheelTimeout);
       
-      // Set a timeout to prevent rapid scrolling - reduced from 100ms to 50ms
+      // Set a timeout to prevent rapid scrolling - set to 250ms (quarter second)
       wheelTimeout = setTimeout(() => {
         if (e.deltaY > 0) {
           navigateToSection(currentSectionIndex + 1);
         } else {
           navigateToSection(currentSectionIndex - 1);
         }
-      }, 50);
+      }, 250);
     };
     
     const appContainer = document.querySelector('.app-container');
