@@ -613,3 +613,43 @@ h1, h2, h3, h4, h5, h6 {
     padding: 15px;
   }
 }
+
+/* CV corner button */
+.cv-corner-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: var(--blue-accent);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  z-index: 1000;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  box-shadow: none; /* No shadow as requested */
+}
+
+.cv-corner-button:hover {
+  background-color: var(--yellow-accent);
+  color: var(--text-color);
+  transform: translateY(-2px);
+}
+
+/* Make the CV button more visible in dark mode */
+@media (prefers-color-scheme: dark) {
+  .cv-corner-button {
+    box-shadow: none; /* No shadow as requested */
+  }
+}
+
+/* Adjust CV button position on mobile */
+@media (max-width: 768px) {
+  .cv-corner-button {
+    top: 10px;
+    right: 10px;
+    padding: 6px 12px;
+    font-size: 0.9rem;
+  }
+}

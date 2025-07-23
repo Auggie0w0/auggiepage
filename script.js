@@ -317,6 +317,18 @@ const App = () => {
     }
   };
   
+  // Function for instant navigation (no animation)
+  const navigateInstantly = (index) => {
+    if (index >= 0 && index < sections.length) {
+      setCurrentSectionIndex(index);
+      // Use instant navigation without animation
+      document.getElementById(sections[index]).scrollIntoView({ 
+        behavior: 'auto',
+        block: 'start'
+      });
+    }
+  };
+  
   useEffect(() => {
     // Initialize the first dot as active
     document.querySelector('.nav-dot[data-slide="welcome"]').classList.add('active');
@@ -325,10 +337,10 @@ const App = () => {
     const handleKeyDown = (e) => {
       if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
         e.preventDefault();
-        navigateToSection(currentSectionIndex + 1);
+        navigateInstantly(currentSectionIndex + 1);
       } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
         e.preventDefault();
-        navigateToSection(currentSectionIndex - 1);
+        navigateInstantly(currentSectionIndex - 1);
       }
     };
     
@@ -407,6 +419,7 @@ const App = () => {
 
   return (
     <div className="app-container">
+      <a href="CV.html" className="cv-corner-button" aria-label="View CV">CV</a>
       <Welcome />
       <About />
       <Projects />
