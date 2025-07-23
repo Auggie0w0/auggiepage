@@ -100,7 +100,7 @@ const Welcome = () => {
         &gt; Hi, I'm <span className="name-highlight" onClick={openPhotoPopup}>August Lam</span><TerminalCursor />
       </h1>
       <h2 className="slide-subheading">&gt;&gt; Cybersecurity student. Culture & tech builder.</h2>
-      <p className="slide-text">&gt;&gt;&gt; Transferred to UBC Year 2 – Computer Science | Cybersecurity Stream</p>
+      <p className="slide-text">&gt;&gt;&gt; Langara, planning to transfer to UBC Year 2 – Computer Science | Cybersecurity Stream</p>
       
       {showPhotoPopup && (
         <div 
