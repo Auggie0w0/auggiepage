@@ -33,6 +33,11 @@ const Slide = ({ id, children }) => {
   );
 };
 
+// Terminal cursor component for nerdy-cute effect
+const TerminalCursor = () => {
+  return <span className="terminal-cursor">_</span>;
+};
+
 // Welcome component
 const Welcome = () => {
   const [showPhotoPopup, setShowPhotoPopup] = useState(false);
@@ -78,7 +83,7 @@ const Welcome = () => {
   return (
     <Slide id="welcome">
       <h1 className="slide-heading">
-        &gt; Hi, I'm <span className="name-highlight" onClick={openPhotoPopup}>August Lam</span>
+        &gt; Hi, I'm <span className="name-highlight" onClick={openPhotoPopup}>August Lam</span><TerminalCursor />
       </h1>
       <h2 className="slide-subheading">&gt;&gt; Cybersecurity student. Culture & tech builder.</h2>
       <p className="slide-text">&gt;&gt;&gt; Transferred to UBC Year 2 – Computer Science | Cybersecurity Stream</p>
@@ -116,11 +121,11 @@ const Welcome = () => {
 const About = () => {
   return (
     <Slide id="about">
-      <h2 className="slide-heading">About Me</h2>
+      <h2 className="slide-heading">&gt; About_Me</h2>
       <div className="slide-text">
-        <p>I love language, leading people, and building safe and creative systems.</p>
-        <p>I'm a team player, gregarious, and an electric unicycle rider.</p>
-        <p>My interests include anime, music, languages, and grinding away at CTFs.</p>
+        <p>&gt;&gt; I love language, leading people, and building safe and creative systems.</p>
+        <p>&gt;&gt; I'm a team player, gregarious, and an electric unicycle rider.</p>
+        <p>&gt;&gt; My interests include anime, music, languages, and grinding away at CTFs.</p>
       </div>
     </Slide>
   );
@@ -130,22 +135,22 @@ const About = () => {
 const Projects = () => {
   const projects = [
     {
-      title: "CTF Challenges",
+      title: "CTF_Challenges",
       description: "Participated in cybersecurity competitions including CyberPatriot, NCL, and PicoCTF.",
       link: null
     },
     {
-      title: "Shadow Maze",
+      title: "Shadow_Maze",
       description: "Side project game development with interactive gameplay mechanics.",
       link: "https://shadow-escape.vercel.app/"
     },
     {
-      title: "Simp Gallery Website",
+      title: "Simp_Gallery_Website",
       description: "Web development project showcasing creative digital content.",
       link: "https://personal-simp-site.vercel.app/"
     },
     {
-      title: "Team Username Taken",
+      title: "Team_Username_Taken",
       description: "Promotional role to increase visibility and engagement for the team.",
       link: null
     }
@@ -153,20 +158,20 @@ const Projects = () => {
 
   return (
     <Slide id="projects">
-      <h2 className="slide-heading">Projects</h2>
+      <h2 className="slide-heading">&gt; Projects[]</h2>
       <div className="projects-grid">
         {projects.map((project, index) => (
           <div className="project-card" key={index}>
             {project.link ? (
               <a href={project.link} className="project-link" target="_blank" rel="noopener noreferrer">
-                <h3 className="project-title">{project.title}</h3>
-                <p>{project.description}</p>
-                <div className="project-visit">Visit Project →</div>
+                <h3 className="project-title">&gt;&gt; {project.title}</h3>
+                <p>&gt;&gt;&gt; {project.description}</p>
+                <div className="project-visit">visit(project) →</div>
               </a>
             ) : (
               <>
-                <h3 className="project-title">{project.title}</h3>
-                <p>{project.description}</p>
+                <h3 className="project-title">&gt;&gt; {project.title}</h3>
+                <p>&gt;&gt;&gt; {project.description}</p>
               </>
             )}
           </div>
@@ -180,17 +185,17 @@ const Projects = () => {
 const Resume = () => {
   return (
     <Slide id="resume">
-      <h2 className="slide-heading">Resume</h2>
-      <p className="slide-text">Currently open for co-op opportunities and internships.</p>
+      <h2 className="slide-heading">&gt; Resume.txt</h2>
+      <p className="slide-text">&gt;&gt; Currently open for co-op opportunities and internships.</p>
       <div>
-        <h3>Key Experiences</h3>
+        <h3>&gt;&gt; Key_Experiences:</h3>
         <ul style={{ marginLeft: "20px", marginTop: "10px", marginBottom: "20px" }}>
-          <li>Cybersecurity Competition Participant</li>
-          <li>Event Coordination</li>
-          <li>Team Leadership</li>
+          <li>&gt;&gt;&gt; Cybersecurity Competition Participant</li>
+          <li>&gt;&gt;&gt; Event Coordination</li>
+          <li>&gt;&gt;&gt; Team Leadership</li>
         </ul>
       </div>
-      <a href="CV.html" className="resume-button">View My CV</a>
+      <a href="CV.html" className="resume-button">&gt; View_CV()</a>
     </Slide>
   );
 };
@@ -232,8 +237,8 @@ const Contact = () => {
 
   return (
     <Slide id="contact">
-      <h2 className="slide-heading">Contact</h2>
-      <p className="slide-text">Let's connect! Reach out to me through any of these platforms.</p>
+      <h2 className="slide-heading">&gt; Contact.connect()</h2>
+      <p className="slide-text">&gt;&gt; Let's connect! Reach out to me through any of these platforms.</p>
       <div className="contact-cards">
         {contactCards.map((card, index) => (
           <a 
@@ -244,8 +249,8 @@ const Contact = () => {
             rel="noopener noreferrer"
           >
             <div className="contact-card-icon">{card.icon}</div>
-            <h3 className="contact-card-title">{card.title}</h3>
-            <p className="contact-card-description">{card.description}</p>
+            <h3 className="contact-card-title">&gt;&gt; {card.title}</h3>
+            <p className="contact-card-description">&gt;&gt;&gt; {card.description}</p>
           </a>
         ))}
       </div>
@@ -256,7 +261,7 @@ const Contact = () => {
 // Navigation dots component
 const NavDots = ({ currentIndex, onNavigate }) => {
   const sections = ["welcome", "about", "projects", "resume", "contact"];
-  const sectionNames = ["Welcome", "About", "Projects", "Resume", "Contact"];
+  const sectionNames = ["Home", "About_Me", "Projects[]", "Resume.txt", "Contact.connect()"];
   const [showLabels, setShowLabels] = useState(false);
   
   // Toggle labels visibility on hover
