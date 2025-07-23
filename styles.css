@@ -68,18 +68,18 @@ h1, h2, h3, h4, h5, h6 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: clamp(1rem, 5vw, 3rem); /* Responsive padding that scales with viewport */
+  padding: 0; /* Removed padding */
   scroll-snap-align: start;
   position: relative;
 }
 
 .slide-content {
-  max-width: min(90%, 1400px); /* More responsive max-width using min() function */
-  width: clamp(300px, 90%, 1600px); /* Responsive width using clamp */
-  padding: clamp(1.5rem, 3vw, 3rem); /* Responsive padding */
-  border-radius: 12px;
+  max-width: 100%; /* Full width */
+  width: 100%; /* Full width */
+  padding: 0; /* Removed padding */
+  border-radius: 0; /* Removed border radius */
   background-color: var(--bg-color);
-  box-shadow: 0 8px 30px var(--slide-shadow);
+  box-shadow: none; /* Removed shadow */
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.2s ease, transform 0.2s ease; /* Faster transition */
@@ -95,20 +95,20 @@ h1, h2, h3, h4, h5, h6 {
 
 .slide-heading {
   font-size: clamp(1.75rem, 5vw, 2.5rem); /* Responsive font size */
-  margin-bottom: 1rem;
+  margin-bottom: 0; /* Removed margin */
   color: var(--text-color);
 }
 
 .slide-subheading {
   font-size: clamp(1.25rem, 3vw, 1.5rem); /* Responsive font size */
-  margin-bottom: 1.5rem;
+  margin-bottom: 0; /* Removed margin */
   color: var(--blue-accent);
 }
 
 .slide-text {
   font-size: clamp(1rem, 2vw, 1.1rem); /* Responsive font size */
   line-height: 1.6;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0; /* Removed margin */
 }
 
 /* Navigation dots */
@@ -155,7 +155,7 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 4px;
   font-size: 0.8rem;
   white-space: nowrap;
-  box-shadow: 0 2px 5px var(--slide-shadow);
+  box-shadow: none; /* Removed shadow */
   opacity: 0;
   transform: translateX(10px);
   transition: opacity 0.3s ease, transform 0.3s ease;
@@ -223,7 +223,7 @@ h1, h2, h3, h4, h5, h6 {
   border: 2px solid var(--blue-accent);
   border-radius: 12px;
   padding: 1.5rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  transition: transform 0.3s ease, border-color 0.3s ease; /* Removed box-shadow transition */
   position: relative;
   overflow: hidden;
   height: 100%;
@@ -233,7 +233,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .project-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 20px var(--slide-shadow);
+  box-shadow: none; /* Removed shadow on hover */
   border-color: var(--yellow-accent);
   cursor: pointer;
 }
@@ -266,7 +266,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .project-title {
   color: var(--blue-accent);
-  margin-bottom: 0.75rem;
+  margin-bottom: 0; /* Removed margin */
   font-size: 1.2rem;
 }
 
@@ -278,7 +278,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .project-visit {
-  margin-top: 1rem;
+  margin-top: 0; /* Removed margin */
   color: var(--blue-accent);
   font-weight: 500;
   font-size: 0.9rem;
@@ -300,7 +300,7 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 4px;
   text-decoration: none;
   font-weight: 500;
-  margin-top: 1rem;
+  margin-top: 0; /* Removed margin */
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
@@ -315,7 +315,7 @@ h1, h2, h3, h4, h5, h6 {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); /* More responsive grid */
   gap: clamp(1rem, 2vw, 1.5rem); /* Responsive gap */
-  margin-top: 2rem;
+  margin-top: 0; /* Removed margin */
   width: 100%;
 }
 
@@ -326,7 +326,7 @@ h1, h2, h3, h4, h5, h6 {
   padding: 1.5rem;
   text-decoration: none;
   color: var(--text-color);
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  transition: transform 0.3s ease, border-color 0.3s ease; /* Removed box-shadow transition */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -349,7 +349,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .contact-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 20px var(--slide-shadow);
+  box-shadow: none; /* Removed shadow on hover */
   border-color: var(--yellow-accent);
 }
 
@@ -359,12 +359,12 @@ h1, h2, h3, h4, h5, h6 {
 
 .contact-card-icon {
   font-size: 2rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0; /* Removed margin */
 }
 
 .contact-card-title {
   color: var(--blue-accent);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0; /* Removed margin */
   font-size: 1.2rem;
   font-weight: 600;
   transition: color 0.3s ease;
@@ -441,7 +441,7 @@ h1, h2, h3, h4, h5, h6 {
   border: 2px solid var(--blue-accent);
   border-radius: 12px;
   padding: 20px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  box-shadow: none; /* Removed shadow */
   z-index: 1001;
   animation: popupFadeIn 0.3s ease forwards;
   width: 60%; /* Set to 60% of viewport width as requested */
