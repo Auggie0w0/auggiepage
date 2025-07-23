@@ -36,30 +36,84 @@ const Slide = ({ id, children }) => {
 // Welcome component
 const Welcome = () => {
   const [showPhotoPopup, setShowPhotoPopup] = useState(false);
+  const popupTimerRef = useRef(null);
   
-  const togglePhotoPopup = () => {
-    setShowPhotoPopup(!showPhotoPopup);
+  const openPhotoPopup = () => {
+    setShowPhotoPopup(true);
+    
+    // Set timer to auto-close after 5 seconds
+    popupTimerRef.current = setTimeout(() => {
+      setShowPhotoPopup(false);
+    }, 5000);
   };
   
-  // Close popup when clicking anywhere
+  // Close popup when clicking anywhere or pressing any key
   const closePopup = () => {
+    if (popupTimerRef.current) {
+      clearTimeout(popupTimerRef.current);
+    }
     setShowPhotoPopup(false);
   };
+  
+  // Add key press event listener when popup is open
+  useEffect(() => {
+    const handleKeyPress = (e) => {
+      if (showPhotoPopup) {
+        closePopup();
+      }
+    };
+    
+    if (showPhotoPopup) {
+      window.addEventListener('keydown', handleKeyPress);
+    }
+    
+    return () => {
+      window.removeEventListener('keydown', handleKeyPress);
+      if (popupTimerRef.current) {
+        clearTimeout(popupTimerRef.current);
+      }
+    };
+  }, [showPhotoPopup]);
   
   return (
     <Slide id="welcome">
       <h1 className="slide-heading">
-        Hi, I'm <span className="name-highlight" onClick={togglePhotoPopup}>August Lam</span>
+        Hi, I'm <span className="name-highlight" onClick={openPhotoPopup}>August Lam</span>
       </h1>
       <h2 className="slide-subheading">Cybersecurity student. Culture & tech builder.</h2>
       <p className="slide-text">Transferred to UBC Year 2 – Computer Science | Cybersecurity Stream</p>
       
       {showPhotoPopup && (
-        <div className="photo-overlay" onClick={closePopup}>
+        <div 
+          className="photo-overlay" 
+          onClick={closePopup}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="photo-title"
+        >
           <div className="photo-popup">
-            <button className="popup-close" onClick={closePopup}>×</button>
-            <img src="me.jpg" alt="August Lam" className="profile-photo" />
-            <div className="popup-note">Click anywhere to close</div>
+            <button 
+              className="popup-close" 
+              onClick={closePopup}
+              aria-label="Close photo"
+            >
+              ×
+            </button>
+            <img 
+              src="me.jpg" 
+              alt="August Lam" 
+              className="profile-photo" 
+              title="Click anywhere to close"
+            />
+            <div 
+              className="popup-note" 
+              id="photo-title"
+            >
+              This popup closes in 5 seconds. Please don't stare at my face too long.
+            </div>
+            <div className="popup-progress">
+              <div className="popup-progress-bar"></div>
+            </div>
           </div>
         </div>
       )}

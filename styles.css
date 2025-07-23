@@ -436,7 +436,7 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
   z-index: 1001;
   animation: popupFadeIn 0.3s ease forwards;
-  max-width: 90%;
+  width: 60%; /* Set to 60% of viewport width as requested */
   max-height: 90vh;
   display: flex;
   flex-direction: column;
@@ -444,7 +444,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .profile-photo {
-  max-width: 100%;
+  width: 100%;
   max-height: 70vh;
   border-radius: 8px;
   object-fit: contain;
@@ -452,8 +452,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .popup-close {
   position: absolute;
-  top: 5px;
-  right: 5px;
+  top: 10px;
+  right: 10px;
   background: none;
   border: none;
   font-size: 24px;
@@ -474,11 +474,33 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .popup-note {
-  font-size: 0.8rem;
-  color: #777;
+  font-size: 0.9rem;
+  color: var(--text-color);
   margin-top: 15px;
-  font-style: italic;
   text-align: center;
+  width: 100%;
+}
+
+/* Progress bar for auto-close timer */
+.popup-progress {
+  width: 100%;
+  height: 4px;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+  margin-top: 15px;
+  overflow: hidden;
+}
+
+.popup-progress-bar {
+  height: 100%;
+  width: 100%;
+  background-color: var(--blue-accent);
+  animation: progressShrink 5s linear forwards;
+}
+
+@keyframes progressShrink {
+  from { width: 100%; }
+  to { width: 0%; }
 }
 
 @keyframes fadeIn {
@@ -489,11 +511,11 @@ h1, h2, h3, h4, h5, h6 {
 @keyframes popupFadeIn {
   from {
     opacity: 0;
-    transform: translate(-50%, 10px);
+    transform: scale(0.95);
   }
   to {
     opacity: 1;
-    transform: translate(-50%, 0);
+    transform: scale(1);
   }
 }
 
@@ -601,5 +623,17 @@ h1, h2, h3, h4, h5, h6 {
   
   .nav-dots {
     display: none;
+  }
+}
+
+/* Responsive photo popup */
+@media (max-width: 768px) {
+  .photo-popup {
+    width: 85%; /* Wider on mobile */
+    padding: 15px;
+  }
+  
+  .popup-note {
+    font-size: 0.8rem;
   }
 }
