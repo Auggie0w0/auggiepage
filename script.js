@@ -78,10 +78,10 @@ const Welcome = () => {
   return (
     <Slide id="welcome">
       <h1 className="slide-heading">
-        Hi, I'm <span className="name-highlight" onClick={openPhotoPopup}>August Lam</span>
+        &gt; Hi, I'm <span className="name-highlight" onClick={openPhotoPopup}>August Lam</span>
       </h1>
-      <h2 className="slide-subheading">Cybersecurity student. Culture & tech builder.</h2>
-      <p className="slide-text">Transferred to UBC Year 2 – Computer Science | Cybersecurity Stream</p>
+      <h2 className="slide-subheading">&gt;&gt; Cybersecurity student. Culture & tech builder.</h2>
+      <p className="slide-text">&gt;&gt;&gt; Transferred to UBC Year 2 – Computer Science | Cybersecurity Stream</p>
       
       {showPhotoPopup && (
         <div 
@@ -103,7 +103,7 @@ const Welcome = () => {
               src="me.jpg" 
               alt="August Lam" 
               className="profile-photo" 
-              title="Click anywhere to close"
+              title="Press any key or click anywhere to close"
             />
           </div>
         </div>

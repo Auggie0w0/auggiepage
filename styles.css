@@ -5,6 +5,7 @@
   --blue-accent: #0F67D1;
   --yellow-accent: #FFD447;
   --slide-shadow: rgba(0, 0, 0, 0.05);
+  --invisible-margin: 2rem; /* Invisible margin size */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -34,10 +35,10 @@ html {
   font-size: 16px; /* Base font size for responsive calculations */
   scroll-behavior: smooth;
   scroll-timeline: --scroll-speed;
+  font-family: 'Fira Code', 'IBM Plex Mono', 'Courier New', monospace; /* Tech-inspired monospace font */
 }
 
 body {
-  font-family: 'Inter', sans-serif;
   background-color: var(--bg-color);
   background-image: radial-gradient(var(--slide-shadow) 1px, transparent 1px);
   background-size: 30px 30px;
@@ -47,7 +48,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'IBM Plex Serif', Georgia, serif;
+  font-family: 'Fira Code', 'IBM Plex Mono', 'Courier New', monospace; /* Consistent monospace for headings */
   font-weight: 600;
 }
 
@@ -68,7 +69,7 @@ h1, h2, h3, h4, h5, h6 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 0; /* Removed padding */
+  padding: var(--invisible-margin); /* Invisible margin */
   scroll-snap-align: start;
   position: relative;
 }
@@ -78,14 +79,13 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%; /* Full width */
   padding: 0; /* Removed padding */
   border-radius: 0; /* Removed border radius */
-  background-color: var(--bg-color);
+  background-color: transparent; /* Make background transparent */
   box-shadow: none; /* Removed shadow */
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.2s ease, transform 0.2s ease; /* Faster transition */
   position: relative;
-  overflow: hidden;
-  /* Removed the blue left rim: border-left: 4px solid var(--blue-accent); */
+  overflow: visible; /* Allow content to overflow */
 }
 
 .slide-content.visible {
@@ -97,21 +97,151 @@ h1, h2, h3, h4, h5, h6 {
   font-size: clamp(1.75rem, 5vw, 2.5rem); /* Responsive font size */
   margin-bottom: 0; /* Removed margin */
   color: var(--text-color);
+  letter-spacing: -0.5px; /* Tighter letter spacing for tech look */
 }
 
 .slide-subheading {
   font-size: clamp(1.25rem, 3vw, 1.5rem); /* Responsive font size */
   margin-bottom: 0; /* Removed margin */
   color: var(--blue-accent);
+  opacity: 0.9;
+  letter-spacing: -0.5px;
 }
 
 .slide-text {
   font-size: clamp(1rem, 2vw, 1.1rem); /* Responsive font size */
   line-height: 1.6;
   margin-bottom: 0; /* Removed margin */
+  opacity: 0.8;
 }
 
-/* Navigation dots */
+/* Name highlight with nerdy-cute style */
+.name-highlight {
+  color: var(--yellow-accent);
+  font-weight: 600;
+  position: relative;
+  transition: color 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+  padding: 0 5px;
+  display: inline-block;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 4px;
+}
+
+.name-highlight:hover {
+  color: var(--blue-accent);
+  transform: translateY(-2px);
+}
+
+.name-highlight::after {
+  content: '✨';
+  position: absolute;
+  font-size: 0.8em;
+  top: -0.5em;
+  right: -0.5em;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.name-highlight:hover::after {
+  opacity: 1;
+}
+
+/* Photo popup - updated for full-screen with 60% width photo */
+.photo-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease;
+  cursor: pointer;
+}
+
+.photo-popup {
+  position: relative;
+  width: 60%; /* Set to 60% of viewport width as requested */
+  max-height: none; /* No max height constraint */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: transparent; /* Transparent background */
+  border: none; /* No border */
+  padding: 0; /* No padding */
+  box-shadow: none; /* No shadow */
+  z-index: 1001;
+  animation: popupFadeIn 0.3s ease forwards;
+}
+
+.profile-photo {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  object-fit: contain;
+}
+
+.popup-close {
+  position: absolute;
+  top: -30px;
+  right: -30px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: white;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+  z-index: 1002;
+  font-family: 'Fira Code', monospace;
+}
+
+.popup-close:hover {
+  color: var(--yellow-accent);
+}
+
+/* CV corner button */
+.cv-corner-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: transparent;
+  color: var(--text-color);
+  padding: 8px 16px;
+  border: 1px solid var(--text-color);
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  z-index: 1000;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  box-shadow: none; /* No shadow as requested */
+  font-family: 'Fira Code', monospace;
+  letter-spacing: -0.5px;
+}
+
+.cv-corner-button:hover {
+  background-color: var(--text-color);
+  color: var(--bg-color);
+  transform: translateY(-2px);
+}
+
+.cv-corner-button::before {
+  content: '> ';
+  opacity: 0.7;
+}
+
+/* Navigation dots - more tech-inspired */
 .nav-dots {
   position: fixed;
   right: 2rem;
@@ -133,7 +263,7 @@ h1, h2, h3, h4, h5, h6 {
 .nav-dot {
   width: 12px;
   height: 12px;
-  border-radius: 50%;
+  border-radius: 0; /* Square dots for tech look */
   background-color: var(--text-color);
   opacity: 0.3;
   cursor: pointer;
@@ -152,7 +282,7 @@ h1, h2, h3, h4, h5, h6 {
   background-color: var(--bg-color);
   color: var(--text-color);
   padding: 0.25rem 0.5rem;
-  border-radius: 4px;
+  border-radius: 0; /* Square corners */
   font-size: 0.8rem;
   white-space: nowrap;
   box-shadow: none; /* Removed shadow */
@@ -160,54 +290,18 @@ h1, h2, h3, h4, h5, h6 {
   transform: translateX(10px);
   transition: opacity 0.3s ease, transform 0.3s ease;
   pointer-events: none;
+  font-family: 'Fira Code', monospace;
+}
+
+.nav-dot-label::before {
+  content: '> ';
+  opacity: 0.7;
 }
 
 .nav-dot-container:hover .nav-dot-label,
 .nav-dots:hover .nav-dot-label {
   opacity: 1;
   transform: translateX(0);
-}
-
-/* Touch-friendly navigation for mobile */
-@media (max-width: 768px) {
-  .nav-dots {
-    right: 1rem;
-  }
-  
-  .nav-dot {
-    width: 14px;
-    height: 14px;
-  }
-  
-  .nav-dot-label {
-    display: none; /* Hide labels on mobile */
-  }
-}
-
-/* Make nav dots more visible in landscape mode */
-@media (max-height: 500px) and (orientation: landscape) {
-  .nav-dots {
-    flex-direction: row;
-    top: auto;
-    bottom: 1rem;
-    right: 50%;
-    transform: translateX(50%);
-    gap: 1rem;
-  }
-  
-  .nav-dot-container {
-    flex-direction: column;
-  }
-  
-  .nav-dot-label {
-    right: auto;
-    bottom: calc(100% + 10px);
-    transform: translateY(10px);
-  }
-  
-  .nav-dot-container:hover .nav-dot-label {
-    transform: translateY(0);
-  }
 }
 
 /* Projects section */
@@ -385,102 +479,6 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
 }
 
-/* Name highlight with hover effect */
-.name-highlight {
-  color: var(--yellow-accent);
-  font-weight: 600;
-  position: relative;
-  transition: color 0.3s ease, transform 0.3s ease;
-  cursor: pointer;
-  padding: 0 5px;
-  display: inline-block;
-}
-
-.name-highlight:hover {
-  color: var(--blue-accent);
-  transform: translateY(-2px);
-}
-
-.name-highlight::after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 2px;
-  bottom: 0;
-  left: 0;
-  background-color: var(--blue-accent);
-  transform: scaleX(0);
-  transform-origin: bottom right;
-  transition: transform 0.3s ease;
-}
-
-.name-highlight:hover::after {
-  transform: scaleX(1);
-  transform-origin: bottom left;
-}
-
-/* Photo popup */
-.photo-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: fadeIn 0.3s ease;
-  cursor: pointer;
-}
-
-.photo-popup {
-  position: relative;
-  background-color: var(--bg-color);
-  border: 2px solid var(--blue-accent);
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: none; /* Removed shadow */
-  z-index: 1001;
-  animation: popupFadeIn 0.3s ease forwards;
-  width: 60%; /* Set to 60% of viewport width as requested */
-  max-height: 90vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.profile-photo {
-  width: 100%;
-  max-height: 70vh;
-  border-radius: 8px;
-  object-fit: contain;
-}
-
-.popup-close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-  color: var(--text-color);
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  transition: background-color 0.2s ease;
-  z-index: 1002;
-}
-
-.popup-close:hover {
-  background-color: rgba(0, 0, 0, 0.1);
-}
-
 /* Removed popup notification and progress bar styles */
 
 @keyframes fadeIn {
@@ -610,46 +608,8 @@ h1, h2, h3, h4, h5, h6 {
 @media (max-width: 768px) {
   .photo-popup {
     width: 85%; /* Wider on mobile */
-    padding: 15px;
   }
 }
 
-/* CV corner button */
-.cv-corner-button {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background-color: var(--blue-accent);
-  color: white;
-  padding: 8px 16px;
-  border-radius: 4px;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 1rem;
-  z-index: 1000;
-  transition: background-color 0.2s ease, transform 0.2s ease;
-  box-shadow: none; /* No shadow as requested */
-}
-
-.cv-corner-button:hover {
-  background-color: var(--yellow-accent);
-  color: var(--text-color);
-  transform: translateY(-2px);
-}
-
-/* Make the CV button more visible in dark mode */
-@media (prefers-color-scheme: dark) {
-  .cv-corner-button {
-    box-shadow: none; /* No shadow as requested */
-  }
-}
-
-/* Adjust CV button position on mobile */
-@media (max-width: 768px) {
-  .cv-corner-button {
-    top: 10px;
-    right: 10px;
-    padding: 6px 12px;
-    font-size: 0.9rem;
-  }
-}
+/* Add Google Fonts link to HTML head */
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
