@@ -159,7 +159,7 @@ const Projects = () => {
       link: "https://shadow-escape.vercel.app/"
     },
     {
-      title: "Simp_Gallery_Website",
+      title: "Simp_Gallery",
       description: "Web development project showcasing creative digital content.",
       link: "https://personal-simp-site.vercel.app/"
     },
@@ -221,13 +221,13 @@ const Contact = () => {
       title: "GitHub",
       icon: "👨‍💻",
       link: "https://github.com/Auggie0w0",
-      description: "Check out my code repositories"
+      description: null // Removed description to make card more compact
     },
     {
       title: "LinkedIn",
       icon: "🔗",
       link: "https://www.linkedin.com/in/august-lam-b6a4a5361",
-      description: "Connect with me professionally"
+      description: null // Removed description to make card more compact
     },
     {
       title: "Email",
@@ -239,19 +239,19 @@ const Contact = () => {
       title: "VSCO",
       icon: "📸",
       link: "https://vsco.co/yaugustlam/gallery",
-      description: "Photos and blog posts"
+      description: null // Removed description to make card more compact
     },
     {
-      title: "Team Homepage",
+      title: "Team",
       icon: "🏠",
       link: "#",
-      description: "Coming Soon"
+      description: null // Removed description to make card more compact
     },
     {
       title: "SoundCloud",
       icon: "🎵",
       link: "https://soundcloud.com/augg0w0",
-      description: "Listen to my music"
+      description: null // Removed description to make card more compact
     }
   ];
 
@@ -270,7 +270,9 @@ const Contact = () => {
           >
             <div className="contact-card-icon">{card.icon}</div>
             <h3 className="contact-card-title">&gt;&gt; {card.title}</h3>
-            <p className="contact-card-description">&gt;&gt;&gt; {card.description}</p>
+            {card.description && (
+              <p className="contact-card-description">&gt;&gt;&gt; {card.description}</p>
+            )}
           </a>
         ))}
       </div>

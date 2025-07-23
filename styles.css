@@ -372,7 +372,7 @@ h1, h2, h3, h4, h5, h6 {
   background-color: var(--bg-color);
   border: 1px solid var(--text-color);
   border-radius: 0; /* Square corners for tech look */
-  padding: 2rem; /* Increased padding */
+  padding: clamp(1rem, 2vw, 2rem); /* Responsive padding */
   transition: transform 0.3s ease, border-color 0.3s ease;
   position: relative;
   overflow: hidden;
@@ -418,6 +418,9 @@ h1, h2, h3, h4, h5, h6 {
 .project-card p {
   flex-grow: 1;
   opacity: 0.8;
+  padding: 0.25rem 0; /* Add vertical padding */
+  word-wrap: break-word; /* Ensure text wraps properly */
+  hyphens: auto; /* Enable hyphenation for better text wrapping */
 }
 
 .project-title {
@@ -428,6 +431,8 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: -0.5px;
   line-height: 1.5; /* Specific line height */
   padding: 0.25rem 0; /* Add vertical padding */
+  word-wrap: break-word; /* Ensure text wraps properly */
+  hyphens: auto; /* Enable hyphenation for better text wrapping */
 }
 
 .project-link {
@@ -502,21 +507,21 @@ h3 {
   margin-left: 0.4em; /* Increased spacing */
 }
 
-/* Contact section */
+/* Contact section - updated for more compact layout */
 .contact-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); /* More responsive grid */
-  gap: clamp(1rem, 2vw, 1.5rem); /* Responsive gap */
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 180px), 1fr)); /* Default responsive grid */
+  gap: clamp(0.75rem, 2vw, 1.25rem); /* Responsive gap */
   margin-top: 2rem; /* Added spacing */
   width: 100%;
 }
 
-/* Contact cards - ensure text doesn't touch borders */
+/* Contact cards - more compact design */
 .contact-card {
   background-color: var(--bg-color);
   border: 1px solid var(--text-color);
   border-radius: 0; /* Square corners for tech look */
-  padding: 2rem; /* Increased padding */
+  padding: clamp(0.75rem, 1.5vw, 1.5rem); /* Reduced padding for more compact look */
   text-decoration: none;
   color: var(--text-color);
   transition: transform 0.3s ease, border-color 0.3s ease;
@@ -527,8 +532,8 @@ h3 {
   position: relative;
   overflow: hidden;
   font-family: 'Fira Code', monospace;
-  margin-bottom: 1.5rem; /* Increased bottom margin */
-  line-height: 1.8; /* Increased line height */
+  margin-bottom: 1rem; /* Reduced bottom margin */
+  line-height: 1.6; /* Slightly reduced line height */
 }
 
 .contact-card::before {
@@ -554,21 +559,23 @@ h3 {
 }
 
 .contact-card-icon {
-  font-size: 2rem;
-  margin-bottom: 1.25rem; /* Increased margin */
+  font-size: 1.75rem; /* Slightly smaller icon */
+  margin-bottom: 0.75rem; /* Reduced margin */
   padding: 0.25rem; /* Add padding around icon */
 }
 
 .contact-card-title {
   color: var(--blue-accent);
-  margin-bottom: 0.75rem; /* Increased margin */
+  margin-bottom: 0.5rem; /* Reduced margin */
   padding: 0.25rem 0; /* Add vertical padding */
-  font-size: 1.2rem;
+  font-size: 1.1rem; /* Slightly smaller font */
   font-weight: 600;
   transition: color 0.3s ease;
   letter-spacing: -0.5px;
   font-family: 'Fira Code', monospace;
-  line-height: 1.5; /* Specific line height */
+  line-height: 1.4; /* Reduced line height */
+  word-wrap: break-word; /* Ensure text wraps properly */
+  hyphens: auto; /* Enable hyphenation for better text wrapping */
 }
 
 .contact-card:hover .contact-card-title {
@@ -579,8 +586,10 @@ h3 {
   font-size: 0.9rem;
   opacity: 0.8;
   font-family: 'Fira Code', monospace;
-  line-height: 1.8; /* Increased line height */
+  line-height: 1.6; /* Reduced line height */
   padding: 0.25rem 0; /* Add vertical padding */
+  word-wrap: break-word; /* Ensure text wraps properly */
+  hyphens: auto; /* Enable hyphenation for better text wrapping */
 }
 
 /* Highlight */
@@ -813,4 +822,27 @@ h3 {
 @keyframes blink {
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }
+}
+
+/* Responsive adjustments for contact cards */
+@media (min-width: 1200px) {
+  .contact-cards {
+    grid-template-columns: repeat(3, 1fr); /* 3 cards per row on desktop */
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .contact-cards {
+    grid-template-columns: repeat(2, 1fr); /* 2 cards per row on tablet */
+  }
+}
+
+@media (max-width: 767px) {
+  .contact-cards {
+    grid-template-columns: 1fr; /* 1 card per row on mobile */
+  }
+  
+  .contact-card {
+    padding: 1rem; /* Slightly smaller padding on mobile */
+  }
 }
