@@ -52,7 +52,7 @@ const Welcome = () => {
         Hi, I'm <span className="name-highlight" onClick={togglePhotoPopup}>August Lam</span>
       </h1>
       <h2 className="slide-subheading">Cybersecurity student. Culture & tech builder.</h2>
-      <p className="slide-text">Transferring to UBC Year 2 – Cybersecurity Co-op Stream</p>
+      <p className="slide-text">Transferred to UBC Year 2 – Computer Science | Cybersecurity Stream</p>
       
       {showPhotoPopup && (
         <div className="photo-overlay" onClick={closePopup}>
@@ -75,7 +75,7 @@ const About = () => {
       <div className="slide-text">
         <p>I love language, leading people, and building safe and creative systems.</p>
         <p>I'm a team player, gregarious, and an electric unicycle rider.</p>
-        <p>My interests include anime, music, languages, and alternative transportation.</p>
+        <p>My interests include anime, music, languages, and grinding away at CTFs.</p>
       </div>
     </Slide>
   );
