@@ -211,24 +211,43 @@ const Contact = () => {
 // Navigation dots component
 const NavDots = ({ currentIndex, onNavigate }) => {
   const sections = ["welcome", "about", "projects", "resume", "contact"];
+  const sectionNames = ["Welcome", "About", "Projects", "Resume", "Contact"];
+  const [showLabels, setShowLabels] = useState(false);
+  
+  // Toggle labels visibility on hover
+  const handleMouseEnter = () => setShowLabels(true);
+  const handleMouseLeave = () => setShowLabels(false);
 
   return (
-    <div className="nav-dots" role="navigation" aria-label="Page Navigation">
+    <div 
+      className="nav-dots" 
+      role="navigation" 
+      aria-label="Page Navigation"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       {sections.map((section, index) => (
         <div 
           key={index} 
-          className={`nav-dot ${index === currentIndex ? 'active' : ''}`} 
-          data-slide={section}
-          onClick={() => onNavigate(index)}
-          role="button"
-          aria-label={`Go to ${section} section`}
-          tabIndex={0}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              onNavigate(index);
-            }
-          }}
-        />
+          className={`nav-dot-container ${index === currentIndex ? 'active' : ''}`}
+        >
+          {showLabels && (
+            <span className="nav-dot-label">{sectionNames[index]}</span>
+          )}
+          <div
+            className={`nav-dot ${index === currentIndex ? 'active' : ''}`} 
+            data-slide={section}
+            onClick={() => onNavigate(index)}
+            role="button"
+            aria-label={`Go to ${sectionNames[index]} section`}
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                onNavigate(index);
+              }
+            }}
+          />
+        </div>
       ))}
     </div>
   );
@@ -238,6 +257,8 @@ const NavDots = ({ currentIndex, onNavigate }) => {
 const App = () => {
   const sections = ["welcome", "about", "projects", "resume", "contact"];
   const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [isLandscape, setIsLandscape] = useState(window.innerHeight < window.innerWidth);
   
   // Function to navigate to a section
   const navigateToSection = (index) => {
@@ -262,9 +283,20 @@ const App = () => {
       }
     };
     
+    // Handle resize events for responsive behavior
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+      setIsLandscape(window.innerHeight < window.innerWidth);
+    };
+    
     // Add wheel event handling for more controlled scrolling
     let wheelTimeout;
     const handleWheel = (e) => {
+      // Don't prevent default scrolling on mobile or in landscape mode on small screens
+      if (isMobile || (isLandscape && window.innerHeight <= 500)) {
+        return;
+      }
+      
       e.preventDefault();
       
       // Clear any existing timeout
@@ -281,8 +313,14 @@ const App = () => {
     };
     
     const appContainer = document.querySelector('.app-container');
-    appContainer.addEventListener('wheel', handleWheel, { passive: false });
+    
+    // Only add wheel event listener for non-mobile devices
+    if (!isMobile) {
+      appContainer.addEventListener('wheel', handleWheel, { passive: false });
+    }
+    
     window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('resize', handleResize);
     
     // Update the active section based on scroll position
     const handleScroll = () => {
@@ -303,14 +341,20 @@ const App = () => {
     
     appContainer.addEventListener('scroll', handleScroll);
     
+    // Initial check
+    handleResize();
+    
     // Cleanup
     return () => {
-      appContainer.removeEventListener('wheel', handleWheel);
+      if (!isMobile) {
+        appContainer.removeEventListener('wheel', handleWheel);
+      }
       window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('resize', handleResize);
       appContainer.removeEventListener('scroll', handleScroll);
       clearTimeout(wheelTimeout);
     };
-  }, [currentSectionIndex]);
+  }, [currentSectionIndex, isMobile, isLandscape]);
 
   return (
     <div className="app-container">
