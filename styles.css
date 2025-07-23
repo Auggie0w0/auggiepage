@@ -24,9 +24,16 @@
   box-sizing: border-box;
 }
 
+/* Faster transitions for all elements */
+* {
+  transition-duration: 0.2s !important; /* Override all transitions to be faster */
+}
+
 /* Responsive base settings */
 html {
   font-size: 16px; /* Base font size for responsive calculations */
+  scroll-behavior: smooth;
+  scroll-timeline: --scroll-speed;
 }
 
 body {
@@ -48,9 +55,10 @@ h1, h2, h3, h4, h5, h6 {
   scroll-snap-type: y mandatory;
   height: 100vh;
   overflow-y: scroll;
-  scroll-behavior: smooth;
+  scroll-behavior: smooth; /* We'll keep smooth but make it faster with a custom property */
   scroll-snap-stop: always; /* Force stopping at each slide */
   width: 100%;
+  --scroll-speed: 0.2s; /* Custom property for faster scroll speed */
 }
 
 .slide {
@@ -74,7 +82,7 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 8px 30px var(--slide-shadow);
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease; /* Faster transition */
   position: relative;
   overflow: hidden;
   /* Removed the blue left rim: border-left: 4px solid var(--blue-accent); */

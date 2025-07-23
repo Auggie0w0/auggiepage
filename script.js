@@ -105,15 +105,6 @@ const Welcome = () => {
               className="profile-photo" 
               title="Click anywhere to close"
             />
-            <div 
-              className="popup-note" 
-              id="photo-title"
-            >
-              This popup closes in 5 seconds. Please don't stare at my face too long.
-            </div>
-            <div className="popup-progress">
-              <div className="popup-progress-bar"></div>
-            </div>
           </div>
         </div>
       )}
@@ -314,11 +305,15 @@ const App = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [isLandscape, setIsLandscape] = useState(window.innerHeight < window.innerWidth);
   
-  // Function to navigate to a section
+  // Function to navigate to a section with reduced delay
   const navigateToSection = (index) => {
     if (index >= 0 && index < sections.length) {
       setCurrentSectionIndex(index);
-      document.getElementById(sections[index]).scrollIntoView({ behavior: 'smooth' });
+      // Use a faster scroll behavior
+      document.getElementById(sections[index]).scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
     }
   };
   
@@ -356,14 +351,14 @@ const App = () => {
       // Clear any existing timeout
       clearTimeout(wheelTimeout);
       
-      // Set a timeout to prevent rapid scrolling
+      // Set a timeout to prevent rapid scrolling - reduced from 100ms to 50ms
       wheelTimeout = setTimeout(() => {
         if (e.deltaY > 0) {
           navigateToSection(currentSectionIndex + 1);
         } else {
           navigateToSection(currentSectionIndex - 1);
         }
-      }, 100);
+      }, 50);
     };
     
     const appContainer = document.querySelector('.app-container');
