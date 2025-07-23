@@ -236,6 +236,12 @@ const Contact = () => {
       description: "yaugustlam@gmail.com"
     },
     {
+      title: "VSCO",
+      icon: "📸",
+      link: "https://vsco.co/yaugustlam/gallery",
+      description: "Photos and blog posts"
+    },
+    {
       title: "Team Homepage",
       icon: "🏠",
       link: "#",

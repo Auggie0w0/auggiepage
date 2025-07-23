@@ -133,7 +133,8 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
   transition: color 0.3s ease, transform 0.3s ease;
   cursor: pointer;
-  padding: 0 5px;
+  padding: 0 0.5rem; /* Increased horizontal padding */
+  margin: 0 0.25rem; /* Add margin */
   display: inline-block;
   text-decoration: underline;
   text-decoration-style: dotted;
@@ -227,30 +228,33 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--yellow-accent);
 }
 
-/* CV corner button */
+/* CV corner button - positioned in the absolute top right corner */
 .cv-corner-button {
   position: fixed;
-  top: 20px;
-  right: 20px;
-  background-color: transparent;
-  color: var(--text-color);
-  padding: 8px 16px;
-  border: 1px solid var(--text-color);
+  top: 0;
+  right: 0;
+  background-color: var(--blue-accent);
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none; /* Remove border */
   border-radius: 0; /* Square corners for tech look */
+  border-bottom-left-radius: 4px; /* Round only the bottom-left corner */
   text-decoration: none;
   font-weight: 600;
   font-size: 1rem;
   z-index: 1000;
-  transition: background-color 0.2s ease, transform 0.2s ease;
+  transition: background-color 0.25s ease, transform 0.25s ease;
   box-shadow: none; /* No shadow as requested */
   font-family: 'Fira Code', monospace;
   letter-spacing: -0.5px;
+  min-width: 3rem; /* Ensure minimum width */
+  text-align: center; /* Center text */
 }
 
 .cv-corner-button:hover {
-  background-color: var(--text-color);
-  color: var(--bg-color);
-  transform: translateY(-2px);
+  background-color: var(--yellow-accent);
+  color: var(--text-color);
+  transform: none; /* Remove the transform effect */
 }
 
 .cv-corner-button::before {
@@ -258,24 +262,35 @@ h1, h2, h3, h4, h5, h6 {
   opacity: 0.7;
 }
 
-/* Adjust CV button position on different screen sizes */
+/* Adjust CV button position on different screen sizes - keep in top right corner */
 @media (min-width: 1800px) {
   .cv-corner-button {
-    top: 30px;
-    right: calc(20% + 30px); /* Align with content margin */
+    top: 0;
+    right: 0;
     font-size: 1.1rem;
   }
 }
 
 @media (min-width: 1200px) and (max-width: 1799px) {
   .cv-corner-button {
-    right: calc(20% + 20px); /* Align with content margin */
+    top: 0;
+    right: 0;
   }
 }
 
 @media (min-width: 768px) and (max-width: 1199px) {
   .cv-corner-button {
-    right: calc(15% + 20px); /* Align with content margin */
+    top: 0;
+    right: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .cv-corner-button {
+    top: 0;
+    right: 0;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
   }
 }
 
@@ -306,6 +321,7 @@ h1, h2, h3, h4, h5, h6 {
   opacity: 0.3;
   cursor: pointer;
   transition: opacity 0.3s ease, transform 0.3s ease;
+  margin: 0.25rem; /* Add margin around dots */
 }
 
 .nav-dot.active {
@@ -319,7 +335,7 @@ h1, h2, h3, h4, h5, h6 {
   right: calc(100% + 10px);
   background-color: var(--bg-color);
   color: var(--text-color);
-  padding: 0.25rem 0.5rem;
+  padding: 0.35rem 0.75rem; /* Increased padding */
   border-radius: 0; /* Square corners */
   font-size: 0.8rem;
   white-space: nowrap;
@@ -351,12 +367,13 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: 2rem; /* Added spacing */
 }
 
+/* Project cards - ensure text doesn't touch borders */
 .project-card {
   background-color: var(--bg-color);
   border: 1px solid var(--text-color);
   border-radius: 0; /* Square corners for tech look */
-  padding: 1.75rem; /* Increased padding */
-  transition: transform 0.3s ease, border-color 0.3s ease; /* Removed box-shadow transition */
+  padding: 2rem; /* Increased padding */
+  transition: transform 0.3s ease, border-color 0.3s ease;
   position: relative;
   overflow: hidden;
   height: 100%;
@@ -410,6 +427,7 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Fira Code', monospace;
   letter-spacing: -0.5px;
   line-height: 1.5; /* Specific line height */
+  padding: 0.25rem 0; /* Add vertical padding */
 }
 
 .project-link {
@@ -420,13 +438,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .project-visit {
-  margin-top: 1rem; /* Added margin */
+  margin-top: 1.5rem; /* Increased margin */
   color: var(--blue-accent);
   font-weight: 500;
   font-size: 0.9rem;
   text-align: right;
   transition: transform 0.3s ease, color 0.3s ease;
   font-family: 'Fira Code', monospace;
+  padding: 0.25rem 0; /* Add vertical padding */
 }
 
 .project-link:hover .project-visit {
@@ -439,7 +458,7 @@ h1, h2, h3, h4, h5, h6 {
   display: inline-block;
   background-color: transparent;
   color: var(--text-color);
-  padding: 0.75rem 1.5rem;
+  padding: 0.75rem 1.75rem; /* Increased horizontal padding */
   border: 1px solid var(--text-color);
   border-radius: 0; /* Square corners for tech look */
   text-decoration: none;
@@ -492,14 +511,15 @@ h3 {
   width: 100%;
 }
 
+/* Contact cards - ensure text doesn't touch borders */
 .contact-card {
   background-color: var(--bg-color);
   border: 1px solid var(--text-color);
   border-radius: 0; /* Square corners for tech look */
-  padding: 1.75rem; /* Increased padding */
+  padding: 2rem; /* Increased padding */
   text-decoration: none;
   color: var(--text-color);
-  transition: transform 0.3s ease, border-color 0.3s ease; /* Removed box-shadow transition */
+  transition: transform 0.3s ease, border-color 0.3s ease;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -535,12 +555,14 @@ h3 {
 
 .contact-card-icon {
   font-size: 2rem;
-  margin-bottom: 1rem; /* Increased margin */
+  margin-bottom: 1.25rem; /* Increased margin */
+  padding: 0.25rem; /* Add padding around icon */
 }
 
 .contact-card-title {
   color: var(--blue-accent);
   margin-bottom: 0.75rem; /* Increased margin */
+  padding: 0.25rem 0; /* Add vertical padding */
   font-size: 1.2rem;
   font-weight: 600;
   transition: color 0.3s ease;
@@ -558,6 +580,7 @@ h3 {
   opacity: 0.8;
   font-family: 'Fira Code', monospace;
   line-height: 1.8; /* Increased line height */
+  padding: 0.25rem 0; /* Add vertical padding */
 }
 
 /* Highlight */
@@ -653,9 +676,9 @@ h3 {
   }
   
   .cv-corner-button {
-    top: 10px;
-    right: 10px;
-    padding: 6px 12px;
+    top: 0;
+    right: 0;
+    padding: 0.4rem 0.8rem;
     font-size: 0.9rem;
   }
   
