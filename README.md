@@ -43,3 +43,6 @@ This is a static website that can be hosted on GitHub Pages or any static hostin
 ## License
 
 MIT 
+
+
+*added to the https://roadmap.sh/projects/portfolio-website*
