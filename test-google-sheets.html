@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Sheets Test - August Lam</title>
+  <style>
+    body {
+      font-family: 'Fira Code', monospace;
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background-color: #FDFBF7;
+      color: #0A0A0A;
+    }
+    
+    .test-section {
+      margin: 2rem 0;
+      padding: 1rem;
+      border: 1px solid #0A0A0A;
+      border-radius: 4px;
+    }
+    
+    .success {
+      background-color: #d4edda;
+      border-color: #c3e6cb;
+      color: #155724;
+    }
+    
+    .error {
+      background-color: #f8d7da;
+      border-color: #f5c6cb;
+      color: #721c24;
+    }
+    
+    .warning {
+      background-color: #fff3cd;
+      border-color: #ffeaa7;
+      color: #856404;
+    }
+    
+    button {
+      background-color: #0F67D1;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: 'Fira Code', monospace;
+      margin: 0.5rem;
+    }
+    
+    button:hover {
+      background-color: #FFD447;
+      color: #0A0A0A;
+    }
+    
+    pre {
+      background-color: #f8f9fa;
+      padding: 1rem;
+      border-radius: 4px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>Google Sheets Integration Test</h1>
+  <p>This page helps you test your Google Sheets configuration before using it on your main CV page.</p>
+  
+  <div class="test-section" id="config-test">
+    <h2>Configuration Test</h2>
+    <div id="config-result">Testing configuration...</div>
+  </div>
+  
+  <div class="test-section" id="api-test">
+    <h2>API Connection Test</h2>
+    <div id="api-result">Testing API connection...</div>
+    <button onclick="testAPI()">Test API Connection</button>
+  </div>
+  
+  <div class="test-section" id="data-test">
+    <h2>Data Fetch Test</h2>
+    <div id="data-result">Ready to test data fetching...</div>
+    <button onclick="testDataFetch()">Test Data Fetch</button>
+  </div>
+  
+  <div class="test-section">
+    <h2>Quick Actions</h2>
+    <button onclick="window.open('CV.html', '_blank')">Open CV Page</button>
+    <button onclick="location.reload()">Refresh Test Page</button>
+  </div>
+
+  <!-- Load the same scripts as CV.html -->
+  <script src="google-sheets-config.js"></script>
+  <script src="cv-data-service.js"></script>
+  
+  <script>
+    // Test configuration
+    function testConfiguration() {
+      const config = window.GOOGLE_SHEETS_CONFIG;
+      const resultDiv = document.getElementById('config-result');
+      
+      if (!config) {
+        resultDiv.innerHTML = '<div class="error">❌ Configuration file not loaded</div>';
+        return false;
+      }
+      
+      if (!config.SHEET_ID || config.SHEET_ID === 'YOUR_GOOGLE_SHEET_ID_HERE') {
+        resultDiv.innerHTML = '<div class="warning">⚠️ Sheet ID not configured</div>';
+        return false;
+      }
+      
+      if (!config.API_KEY || config.API_KEY === 'YOUR_GOOGLE_API_KEY_HERE') {
+        resultDiv.innerHTML = '<div class="warning">⚠️ API Key not configured</div>';
+        return false;
+      }
+      
+      resultDiv.innerHTML = `
+        <div class="success">✅ Configuration looks good!</div>
+        <pre>Sheet ID: ${config.SHEET_ID}
+API Key: ${config.API_KEY.substring(0, 10)}...</pre>
+      `;
+      return true;
+    }
+    
+    // Test API connection
+    async function testAPI() {
+      const resultDiv = document.getElementById('api-result');
+      resultDiv.innerHTML = 'Testing API connection...';
+      
+      const config = window.GOOGLE_SHEETS_CONFIG;
+      if (!config || !config.SHEET_ID || !config.API_KEY) {
+        resultDiv.innerHTML = '<div class="error">❌ Configuration not set up</div>';
+        return;
+      }
+      
+      try {
+        const url = `https://sheets.googleapis.com/v4/spreadsheets/${config.SHEET_ID}?key=${config.API_KEY}`;
+        const response = await fetch(url);
+        
+        if (response.ok) {
+          const data = await response.json();
+          resultDiv.innerHTML = `
+            <div class="success">✅ API connection successful!</div>
+            <pre>Sheet Title: ${data.properties.title}
+Sheet ID: ${data.spreadsheetId}</pre>
+          `;
+        } else {
+          resultDiv.innerHTML = `<div class="error">❌ API Error: ${response.status} ${response.statusText}</div>`;
+        }
+      } catch (error) {
+        resultDiv.innerHTML = `<div class="error">❌ Connection Error: ${error.message}</div>`;
+      }
+    }
+    
+    // Test data fetching
+    async function testDataFetch() {
+      const resultDiv = document.getElementById('data-result');
+      resultDiv.innerHTML = 'Testing data fetch...';
+      
+      const config = window.GOOGLE_SHEETS_CONFIG;
+      if (!config || !config.SHEET_ID || !config.API_KEY) {
+        resultDiv.innerHTML = '<div class="error">❌ Configuration not set up</div>';
+        return;
+      }
+      
+      try {
+        const dataService = new CVDataService(config);
+        const personalInfo = await dataService.getPersonalInfo();
+        
+        if (personalInfo) {
+          resultDiv.innerHTML = `
+            <div class="success">✅ Data fetch successful!</div>
+            <pre>Name: ${personalInfo.name}
+Location: ${personalInfo.location}
+Phone: ${personalInfo.phone}
+Email: ${personalInfo.email}</pre>
+          `;
+        } else {
+          resultDiv.innerHTML = '<div class="warning">⚠️ No data returned (check your sheet structure)</div>';
+        }
+      } catch (error) {
+        resultDiv.innerHTML = `<div class="error">❌ Data Fetch Error: ${error.message}</div>`;
+      }
+    }
+    
+    // Run initial tests
+    document.addEventListener('DOMContentLoaded', () => {
+      testConfiguration();
+    });
+  </script>
+</body>
+</html>
