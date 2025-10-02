@@ -9,7 +9,11 @@ google sheets API
 
 # small ideas
 - add links to about me that has embed popup that allows the user to clicks into and opens new page
-    - ie. I am in Langara rn, when in about me, hovering over the Lanagara text, the embed of hinted website pop up will appear
+	- ie. I am in Langara rn, when in about me, hovering over the Lanagara text, the embed of hinted website pop up will appear
 - add transitions to buttons for when hovered over to add interactivity
 - too many projects, so make it gallery scroll or add hyperlink to project page
-    - ie. see all (projects)
+	- ie. see all (projects)
+- create a cursor design that follows or replaces the cursor when on the website
+
+## design
+take ideas from this site: https://junni.co.jp/ 
